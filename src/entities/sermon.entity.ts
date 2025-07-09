@@ -6,6 +6,9 @@ export class Sermon {
   id: number;
 
   @Column()
+  thumbnail: string;
+
+  @Column()
   title: string;
 
   @Column()
