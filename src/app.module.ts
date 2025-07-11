@@ -10,6 +10,7 @@ import { MainModule } from './main/main.module';
 import { Main } from './entities/main.entity';
 import { SermonModule } from './sermon/sermon.module';
 import { Sermon } from './entities/sermon.entity';
+import { Popup } from './entities/popup.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { Sermon } from './entities/sermon.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User, Main, Sermon],
+        entities: [User, Main, Sermon, Popup],
         synchronize: false,
       }),
       inject: [ConfigService],

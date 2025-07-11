@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   Res,
   UploadedFiles,
   UseInterceptors,
@@ -11,6 +12,7 @@ import { MainService } from './main.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import * as path from 'path';
+import { PopupBody } from 'src/utils/type';
 
 type MulterFile = Express.Multer.File;
 
@@ -91,5 +93,51 @@ export class MainController {
       churchImagePath,
       youtubeLink,
     });
+  }
+
+  @Get('/popup')
+  getPopupData(@Query() query: Record<string, any>) {
+    const isOpen = query.is_open;
+    return this.mainService.getPopupData(isOpen);
+  }
+
+  @Post('/popup')
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'popup_image', maxCount: 1 }], {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (_, file, callback) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() + 1e9);
+
+          callback(
+            null,
+            `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`,
+          );
+        },
+      }),
+      fileFilter: (_, file, callback) => {
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp|avif)$/i)) {
+          return callback(new Error('Only image files are allowed!'), false);
+        }
+        callback(null, true);
+      },
+      limits: {
+        fileSize: 1024 * 1024 * 10,
+      },
+    }),
+  )
+  postPopup(
+    @UploadedFiles()
+    files: {
+      popup_image?: MulterFile[];
+    },
+    @Body() body: PopupBody,
+  ) {
+    let popupImage = '';
+    if (files.popup_image) {
+      popupImage = `/uploads/${files.popup_image[0].filename}`;
+    }
+    return this.mainService.postPopup(popupImage, body);
   }
 }
