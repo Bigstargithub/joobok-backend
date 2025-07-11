@@ -21,11 +21,11 @@ export class Sermon {
   is_deleted: number;
 
   @Column()
-  created_at: string;
+  created_at: Date;
 
   @Column()
-  updated_at: string;
+  updated_at: Date;
 
   @Column()
-  deleted_at: string;
+  deleted_at: Date;
 }
