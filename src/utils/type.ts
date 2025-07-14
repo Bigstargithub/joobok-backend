@@ -12,3 +12,9 @@ export interface PopupBody {
   popup_start_date: string;
   popup_end_date: string;
 }
+
+export interface SquareBody {
+  square_id?: number;
+  square_title: string;
+  square_description: string;
+}

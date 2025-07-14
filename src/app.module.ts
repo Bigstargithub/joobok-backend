@@ -11,6 +11,8 @@ import { Main } from './entities/main.entity';
 import { SermonModule } from './sermon/sermon.module';
 import { Sermon } from './entities/sermon.entity';
 import { Popup } from './entities/popup.entity';
+import { SquareModule } from './square/square.module';
+import { Square } from './entities/square.entity';
 
 @Module({
   imports: [
@@ -29,13 +31,14 @@ import { Popup } from './entities/popup.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User, Main, Sermon, Popup],
+        entities: [User, Main, Sermon, Popup, Square],
         synchronize: false,
       }),
       inject: [ConfigService],
     }),
     MainModule,
     SermonModule,
+    SquareModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -15,6 +15,9 @@ export class SermonService {
     try {
       const sermonList = await this.sermonRepository.find({
         where: { is_deleted: 0 },
+        order: {
+          id: 'DESC',
+        },
       });
       return { status: 200, sermonList };
     } catch (error) {
