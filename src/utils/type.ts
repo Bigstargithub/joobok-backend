@@ -18,3 +18,9 @@ export interface SquareBody {
   square_title: string;
   square_description: string;
 }
+
+export interface PhotoBody {
+  photo_id?: number;
+  photo_title: string;
+  photo_description: string;
+}

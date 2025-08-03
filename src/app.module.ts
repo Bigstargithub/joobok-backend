@@ -13,6 +13,9 @@ import { Sermon } from './entities/sermon.entity';
 import { Popup } from './entities/popup.entity';
 import { SquareModule } from './square/square.module';
 import { Square } from './entities/square.entity';
+import { PhotoModule } from './photo/photo.module';
+import { Photo } from './entities/photo.entity';
+import { PhotoFile } from './entities/photofile.entity';
 
 @Module({
   imports: [
@@ -31,7 +34,7 @@ import { Square } from './entities/square.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User, Main, Sermon, Popup, Square],
+        entities: [User, Main, Sermon, Popup, Square, Photo, PhotoFile],
         synchronize: false,
       }),
       inject: [ConfigService],
@@ -39,6 +42,7 @@ import { Square } from './entities/square.entity';
     MainModule,
     SermonModule,
     SquareModule,
+    PhotoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
